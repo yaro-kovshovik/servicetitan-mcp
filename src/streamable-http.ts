@@ -29,12 +29,14 @@ import { ExperimentalWritesDisabledError, loadConfig } from "./config.js";
 import { Logger } from "./logger.js";
 import { createMcpServer, VERSION } from "./server.js";
 import { authenticated, allowedOrigin, requestUrl, attachAuthenticatedPrincipal } from "./http-policy.js";
+import { oauthConfigFromEnv, handleOAuthRoute, oauthBearerAuthenticated, wwwAuthenticateHeader } from "./oauth.js";
 
 const SESSION_IDLE_TTL_MS = 30 * 60 * 1000;
 const SESSION_REAP_INTERVAL_MS = 60 * 1000;
 
 const PORT = Number(process.env.PORT ?? process.env.ST_MCP_PORT ?? 3100);
 const API_KEY = process.env.ST_MCP_API_KEY ?? "";
+const OAUTH = oauthConfigFromEnv();
 
 if (!API_KEY) {
   process.stderr.write("Fatal: ST_MCP_API_KEY is required for remote access.\n");
@@ -169,8 +171,16 @@ async function main(): Promise<void> {
       return;
     }
 
-    // Auth required for everything else
-    if (!authenticated(req, API_KEY)) {
+    // OAuth discovery + authorize/token endpoints (no static-key auth — this IS the auth)
+    if (OAUTH) {
+      const handled = await handleOAuthRoute(req, res, url, OAUTH);
+      if (handled) return;
+    }
+
+    // Auth required for everything else: either the static shared key, or a bearer
+    // token this server itself issued via the OAuth flow above.
+    if (!authenticated(req, API_KEY) && !(OAUTH && oauthBearerAuthenticated(req))) {
+      if (OAUTH) res.setHeader("WWW-Authenticate", wwwAuthenticateHeader(OAUTH.issuerUrl));
       sendJson(res, 401, { error: "Unauthorized", requestId });
       return;
     }
