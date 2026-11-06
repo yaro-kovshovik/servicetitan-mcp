@@ -1,8 +1,175 @@
 # V3 stable read-only validation
 
+## October 25, 2026 compatibility-preserving Zod security repair
+
+Zod is pinned to 4.6.6. Application schemas use the local v3-compatible facade,
+which rejects arrays above an existing max or exact-length bound before parsing
+their elements. The bundled legacy parser needs this explicit backport; importing
+`zod/v3` alone leaves the vulnerable traversal intact. SDK protocol schemas use
+the patched native v4 implementation. No installed dependency source is patched.
+
+Fresh clean local matrices on Node 22.23.3 and 24.22.1, with npm 11.19.1, pass
+contracts, typecheck, lint, 602 coverage tests in 44 files, 18 built-wire tests,
+all nine discovery profiles, two packaging tests, package dry runs and full
+zero-finding dependency audits. Nineteen schema regressions cover size-chain
+cloning, synchronous/asynchronous parsing, nested records/unions, generated
+official schemas, ordinary errors and valid controls. Three added built-process
+tests exercise the actual journal-entry array inputs over stdio, HTTP and SSE.
+Oversized inputs visit zero child validators and remain bounded to one size
+issue per failing branch. Both complete SDK discovery captures exactly match
+the preserved pre-migration output for all 458 tools, including descriptions.
+The pinned discovery fixture is unchanged.
+
+Fresh focused synthetic protocol checks also pass on both runtimes: 32 samples,
+one repetition, three-second soak and 24 steady scenarios each. Row/amount,
+overload, recovery, session-churn and controlled-upstream assertions pass. The
+historical v2.6.4 comparison has its own locked installation; dependencies are
+not shared with the candidate. These are bounded fixture measurements, with no
+production-capacity or percentile-stability claim. Final packed-consumer results
+and release-policy checks are recorded separately in the acceptance record.
+
+The business handlers, routes, official contract snapshot, tool membership,
+confirmation/authentication policy and support policy are unchanged. Existing
+source edits outside the facade are mechanical import routing. Accepted array
+sizes delegate to the same legacy validator; the new early return applies only
+to already-invalid oversized arrays. Legacy integer, UUID, date-time, default,
+optional, strip/passthrough and strict-object controls pass. Upstream legacy
+runtime differences were reviewed: comment changes, emoji-regex spelling and
+intersection/error-format prototype handling. The application does not use the
+changed emoji, intersection or error-format helpers. This review supports
+continuity of the explicitly historical bounded readonly production evidence.
+It does not claim fresh production acceptance or identical dependency files.
+
+Generated runtime/declaration output changes, so prior JavaScript build hashes
+are historical. Unbounded arrays retain their existing behavior; this repair
+does not add a universal request-resource cap. Future schema work must use the
+facade and keep its size-clone, all-tool and transport regressions. Version 3.0.1
+and `readonly-v1` remain unchanged. No live tenant call, credential change,
+publication, deployment or Linux CI run occurred in this local verification.
+
+## October 18, 2026 dependency-security maintenance
+
+This candidate updates three lockfile resolutions: MCP TypeScript SDK 1.30.0 to
+1.32.1, proxy-addr 2.0.7 to 2.0.8, and source-map-js 1.2.1 to 1.2.2. Package
+version 3.0.1, direct dependency ranges, application source and the readonly-v1
+support policy are unchanged. The SDK and proxy-addr records are runtime
+dependencies. The server uses native HTTP and shared-key authentication; the
+advisories' OAuth-client and Express trusted-proxy paths were not found in the
+application. Updating the dependencies also protects future callers.
+
+Clean installs on local Node 22.23.3 and 24.21.0 passed contracts, typecheck, lint,
+583 coverage tests in 43 files, 15 built-wire tests, nine discovery configurations,
+two packaging tests and package dry runs. Both full npm audits report zero
+vulnerabilities. Local constructor-only source-map and mapped-address trust tests
+reproduce the vulnerable behavior in the original dependency versions and verify
+that the patched versions reject it. Valid mappings and intended trusted subnet
+behavior remain covered. These local checks use synthetic configuration and make
+no ServiceTitan calls.
+
+The generated JavaScript digest remains
+`b9029359130a290ad67fbf3d6a7481f1cb3d644cfb089357a06b994c9605e629`, matching the
+previous acceptance record. Runtime dependency implementation has changed.
+Historical production and broad load/latency evidence is carried forward within
+its existing scope, supported by unchanged application code and renewed local
+protocol, authorization, request and package checks. Those historical live and
+load exercises were not repeated. Linux CI is recorded separately when it runs.
+No npm publication, live tenant call or production-runtime update was performed.
+
+## October 4, 2026 dependency-security maintenance
+
+This unpublished default-branch maintenance candidate keeps package version 3.0.1,
+the `readonly-v1` support policy, application source, supported Node majors, and
+direct dependency ranges unchanged. The lockfile refreshes five resolved packages
+within those ranges: Axios 1.18.1→1.20.0, brace-expansion 5.0.9→5.0.12,
+fast-uri 3.1.7→3.1.8, Hono 4.13.5→4.13.13, and ip-address 10.4.0→10.7.3.
+Axios, Hono, fast-uri, and ip-address are runtime dependency records; this is not
+a development-only or byte-identical-installed-dependencies update. The previous
+sections below describe earlier candidates and remain historical.
+
+On local Node 22.23.3/npm 10.9.9 and Node 24.21.0/npm 11.19.0, clean locked
+installs and full low-threshold npm audits reported zero vulnerabilities.
+Contracts, typecheck, lint, 583 coverage tests in 43 files, 15 built-wire tests,
+nine discovery configurations, two packaging tests, and npm pack dry runs passed
+on both runtimes. All 141 generated JavaScript/declaration files on Node 24
+were byte-identical to an independently built intermediate ip-address-only
+candidate using the same application source and build tooling. The comparison
+does not imply the externally loaded runtime packages are identical. The
+client-runtime tests exercise real Axios request boundaries with local adapters;
+wire/discovery/packaging checks used synthetic configuration and no ServiceTitan
+tenant calls. A separate Node 22.23.3 controlled-adapter client-load run passed
+five load scenarios and nine fault scenarios with 960 offered requests, 904
+successful requests and 56 accounted queue-cap rejections. It exercised auth
+single-flight, 401/429 recovery, cancellation, bounded retry delay, and no replay
+of ambiguous writes against synthetic fixtures; no upstream calls or production
+throughput claim resulted. Linux CI is reported only after it runs and is not
+inferred from these local checks.
+
+Historical readonly production and broad latency/load evidence below was not
+rerun. Carry-forward is limited to the unchanged application contracts, request
+code and generated package files, the compatible dependency ranges, and renewed
+deterministic request, interface, protocol, package and focused synthetic-load
+checks. This is a reviewed continuity
+argument, not proof of identical dependency behavior or fresh production/load
+certification. No live tenant read/write, npm publication, or deployment occurred.
+
+## September 13 compatible development-tool maintenance
+
+A separate unpublished maintenance candidate advances `@types/node` 22.19.13 to 22.20.2, both TypeScript ESLint packages 8.65.0 to 8.70.0, ESLint 10.8.0 to 10.10.0, and esbuild 0.28.1 to 0.28.2. Package version 3.0.1, supported Node major versions, runtime source, and direct runtime dependency ranges remain unchanged. The Axios 1.18.1 to 1.20.0 lockfile candidate is intentionally outside this development-only batch and requires separate runtime-acceptance review; no major dependency migration is included.
+
+Clean local installs on Node 22.23.2 and 24.19.0 with npm 10.9.9 pass dependency-tree validation, zero-vulnerability audits, contract checks, typechecking, lint, 583 coverage tests in 43 files, 15 wire tests, nine discovery configurations, and both packaging tests. All 106 non-development lock records and all 141 generated runtime/declaration files are byte-identical to the preceding tested security artifact. This is local macOS arm64 evidence, not a Linux CI or publication result.
+
+Historical production, broad load, and focused synthetic protocol evidence below was not rerun. Reuse is limited to the unchanged runtime/declaration artifact, unchanged runtime dependency records and request/contracts/profile implementation, and the renewed deterministic matrix. The dependency inventory as a whole is not unchanged: development tooling was updated. Final archive identity, fresh consumer installs, zero-upstream import/profile/stdio smokes, and release-policy validation are checked separately for the local maintenance candidate. Existing source-lock evidence does not imply older consumer installations were updated, and fresh consumer ranges are audited separately.
+
+
 Version `3.0.1` retains stable read-only support under the `readonly-v1` policy in [v3-acceptance.json](v3-acceptance.json). Stable support covers read-only use subject to each company's scopes, modules, separate runtime/configuration, and readiness/report validation. Live integration writes and independent-company acceptance are explicitly scoped out with reasons; neither is recorded as passed. Mutations remain experimental, and dashboard parity is not certified.
 
-## v3.0.1 description and discovery patch
+## Local security-maintenance candidate — September 13, 2026 (Arizona)
+
+This is an unpublished local candidate retaining package version 3.0.1, not a new
+npm release or a claim of remote Linux CI success. Hono is patched from 4.13.0 to
+4.13.5 within MCP SDK 1.30.0's existing range. The development-only Vitest and
+coverage-v8 family is aligned at 4.1.11. Every other source-lock dependency entry,
+ServiceTitan request handler, contract, profile, and runtime source file is
+unchanged. The generated JavaScript build remains byte-identical to the reviewed
+v3.0.1 build: SHA-256 `b9029359130a290ad67fbf3d6a7481f1cb3d644cfb089357a06b994c9605e629`.
+
+Fresh local Node22.23.2 and Node24.19.0 runs pass clean install, dependency-tree
+validation, zero full and production audit findings, contracts, typecheck, lint,
+583 tests in 43 files with coverage, fifteen wire tests, nine discovery
+configurations, and two packaging tests. Fresh installed candidate archives pass
+imports, five profiles, experimental safeguards, and actual stdio smoke with zero
+upstream calls on both runtimes. Fresh consumers resolve dependency ranges
+independently of this repository lock; they are audited separately, not assumed
+to reproduce old installations. Final documentation-bearing archives are repacked
+and checked after evidence updates.
+
+The Hono patch is an inventory repair, not a finding of demonstrated exploitability
+in this application. Official 4.13.0/4.13.5 tarballs show the `hono/ws` helper
+imported by the unchanged `@hono/node-server`2.1.0 adapter is byte-identical and has
+no imports. The SDK's direct Hono application imports occur in examples, not our
+stdio or HTTP entrypoints. This narrow import-path review, unchanged built code,
+unchanged ServiceTitan client dependencies and renewed deterministic checks
+support reuse of the explicitly historical readonly production and broader
+client-load/cache/retained-memory evidence below. We do not claim that all
+installed dependency files are unchanged, or that the old live checks were rerun.
+
+A fresh focused synthetic stdio/HTTP protocol matrix also passes on both runtimes:
+32 samples, one repetition, three-second soak, 24 steady scenarios and all five
+correctness/overload/recovery/session-churn/controlled-upstream assertions. The
+historical baseline has its own pinned installation because the locks differ.
+The benchmark preload now resolves each variant's own ESM Axios instance; the
+first independent-baseline attempt exposed the old harness's wrong-instance
+fixture binding and was not counted as a passing measurement. Loopback proxy
+isolation blocked real upstream access. No product or acceptance assertion was
+weakened. Node22's benchmark driver retains the previously documented abort-listener
+warning; no listener threshold was changed. See [benchmark evidence](../BENCHMARKS.md).
+
+No tenant credentials, live API reads, live writes, report data execution, fresh
+production/latency certification, or independent-company validation occurred.
+Historical liveProduction remains explicitly not rerun, the readonly-v1 policy is
+unchanged, and integration/independent-company exclusions remain unchanged.
+
+## Historical v3.0.1 description and discovery patch
 
 All 264 read definitions were reviewed against pinned API contracts and their handlers. The patch preserves tool names, profile membership, defaults, validation constraints, annotations, request handlers, API routes, and response behavior. Dependencies and pinned contracts are unchanged. The retained `discovery:check` compares nine actual SDK configurations with the v3.0.0 contract fixture without upstream requests.
 
